@@ -25,7 +25,7 @@ export default defineConfig({
   use: {
     /* Base URL to use in actions like `await page.goto('/')`. */
     baseURL:
-      process.env.NODE_ENV == "test"
+      process.env.GITHUB_ACTIONS === "true"
         ? "https://mango-beach-0a1514d03-test.westeurope.3.azurestaticapps.net/"
         : "http://localhost:3000",
 
