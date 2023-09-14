@@ -22,7 +22,7 @@ export default function Home() {
         />
         <div className="text-accent">
           {pokemon && (
-            <div className="mt-20">
+            <div className="mt-24">
               <h1 className="text-4xl font-bold text-center capitalize">
                 #{pokemon.id}
                 {` `}
