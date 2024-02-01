@@ -54,7 +54,6 @@ jobs:
       - name: Upload HTML report to Azure
         shell: bash
         run: |
-          REPORT_DIR='run-${{ github.run_id }}-${{ github.run_attempt }}'
           azcopy cp --recursive "./playwright-report/*" "https://sthsplaywright.blob.core.windows.net/\$web"
           echo "::notice title=HTML report url::https://sthsplaywright.z6.web.core.windows.net"
         env:
