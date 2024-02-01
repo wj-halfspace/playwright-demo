@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import usePokemonSearchResult from "@/hooks/usePokemonSearchResult";
 import Head from "next/head";
 import { useState } from "react";
@@ -12,7 +13,7 @@ export default function Home() {
       </Head>
       <div className="grid justify-center">
         <div>
-          <img src="logo.png" className="h-36 mx-auto" />
+          <img alt="logo" src="logo.png" className="h-36 mx-auto" />
         </div>
         <input
           spellCheck={false}
