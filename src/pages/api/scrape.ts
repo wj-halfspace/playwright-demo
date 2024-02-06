@@ -21,8 +21,9 @@ export default async function handler(
   await page.goto("https://www.halfspace.ai/team");
 
   const people: Person[] = [];
-  const divElements = await page.$$eval("div.grid > div > div > div", (divs) =>
-    divs.map((div) => div.textContent)
+  const divElements = await page.$$eval(
+    "div.grid.grid-flow-row > div > div",
+    (divs) => divs.map((div) => div.textContent)
   );
 
   for (let i = 0; i < divElements.length; i += 4) {

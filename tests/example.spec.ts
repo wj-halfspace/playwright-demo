@@ -10,10 +10,14 @@ test("has title", async ({ page }) => {
 test("finds pikachu", async ({ page }) => {
   await page.goto("/");
 
+  const apiCall = page.waitForResponse((response) =>
+    response.url().includes("pikachu")
+  );
+
   await page.getByRole("textbox").fill("pikachu");
 
   // wait until fetch for pikachu ends
-  await page.waitForResponse((response) => response.url().includes("pikachu"));
+  await apiCall;
 
   expect(await page.$("text=pikachu")).toBeTruthy();
   expect(page.getByAltText("pikachu")).toBeTruthy();
