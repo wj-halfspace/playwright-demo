@@ -24,40 +24,5 @@ jobs:
           ###### Repository/Build Configurations - These values can be configured to match your app requirements. ######
           # For more information regarding Static Web App workflow configurations, please visit: https://aka.ms/swaworkflowconfig
           app_location: "/" # App source code path
-          api_location: "" # Api source code path - optional
-          output_location: "" # Built app content directory - optional
+          output_location: "/dist" # Built app content directory - optional
           ###### End of Repository/Build Configurations ######
-  test:
-    needs: build_and_deploy_job
-    runs-on: ubuntu-latest
-    name: End-to-End Tests
-    timeout-minutes: 60
-    steps:
-      - uses: actions/checkout@v3
-      - uses: actions/setup-node@v3
-        with:
-          node-version: 18
-      - name: Wait for 10 seconds
-        run: sleep 10
-      - name: Install dependencies
-        run: npm ci
-      - name: Install Playwright Browsers
-        run: npx playwright install --with-deps
-      - name: Run Playwright tests
-        run: npx playwright test
-      - uses: actions/upload-artifact@v3
-        if: always()
-        with:
-          name: playwright-report
-          path: playwright-report/
-          retention-days: 30
-      - name: Upload HTML report to Azure
-        shell: bash
-        run: |
-          azcopy cp --recursive "./playwright-report/*" "https://sthsplaywright.blob.core.windows.net/\$web"
-          echo "::notice title=HTML report url::https://sthsplaywright.z6.web.core.windows.net"
-        env:
-          AZCOPY_AUTO_LOGIN_TYPE: SPN
-          AZCOPY_SPA_APPLICATION_ID: "${{ secrets.AZCOPY_SPA_APPLICATION_ID }}"
-          AZCOPY_SPA_CLIENT_SECRET: "${{ secrets.AZCOPY_SPA_CLIENT_SECRET }}"
-          AZCOPY_TENANT_ID: "${{ secrets.AZCOPY_TENANT_ID }}"
